@@ -14,7 +14,6 @@ import fileinput
 import sys
 import datetime
 
-
 # This is the directory of the Cover letter!
 rootDirURL="/home/ziad/Documents/Work/Study"
 
@@ -34,12 +33,14 @@ token01="COMPANY01"
 replacement01=(str(sys.argv[1]))
 
 token02="POSITION02"
-replacement02=(str(sys.argv[2]))
+replacement02=(str(sys.argv[2]) + " " + str(sys.argv[3]))
 
 token03="DATE03"
-replacement03=str(datetime.datetime.now())
+myDateVer=datetime.datetime.now()
+replacement03=str(str(myDateVer.year) + "/"+ str(myDateVer.month) +"/"+ str(myDateVer.day))
 
-
+command="libreoffice  --headless --convert-to pdf NEWout.odt"
+command02="cp NEWout.pdf $(replacement01)-CoverLetter.pdf"
 #
 # Unzip ODT
 #
@@ -73,9 +74,15 @@ for line in fileinput.input(xmlFileURL, inplace=1):
 print (" -- Compressing --------------------")
 print ("%s -> %s" % (tmpDirURL , zipOutFileURL))
 
+
 with zipfile.ZipFile(zipOutFileURL, 'w') as outzip:
     zipinfos = zipdata.infolist()
     for zipinfo in zipinfos:
         fileName=zipinfo.filename # The name and path as stored in the archive
         fileURL=tmpDirURL+"/"+fileName # The actual name and path
         outzip.write(fileURL,fileName)
+
+
+
+os.system(command)
+os.system(command02)
