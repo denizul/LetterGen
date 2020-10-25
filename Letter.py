@@ -40,7 +40,7 @@ myDateVer=datetime.datetime.now()
 replacement03=str(str(myDateVer.year) + "/"+ str(myDateVer.month) +"/"+ str(myDateVer.day))
 
 command="libreoffice  --headless --convert-to pdf NEWout.odt"
-command02="cp NEWout.pdf " + replacement01 + "-CoverLetter.pdf"
+command02="mv NEWout.pdf " + replacement01 + "-CoverLetter.pdf && rm NEWout.odt"
 
 #
 # Unzip ODT
